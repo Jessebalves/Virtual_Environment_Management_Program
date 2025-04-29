@@ -1,8 +1,11 @@
-import tkinter
+import tkinter  
 import sys
 import os
 import shutil
 import time
+
+def click():
+    print("You clicked the test button")
 
 #This is an example of tkinter module
 #create Graphical User interface
@@ -14,7 +17,7 @@ root.title("VEM - Virtual Environment Management Program")
 #size of GUI
 root.geometry("1920x1080")
 
-text_widget = tkinter.Text(root,height =1920, width =1080)
+text_widget = tkinter.Text(root,height =100, width =100)
 text_widget.pack()
 
 
@@ -32,9 +35,16 @@ OP_Message = ('Operating System on machine: ' + os.name)
 print(OP_Message)
 
 text_widget.insert(tkinter.END,OP_Message)
+button1 = tkinter.Button(root, text = "Test button",command = click, font = ("Comic Sans",30))
+button1.place(x=1000,y=300)
+#button1.pack()
+text_widget.insert(tkinter.END,'\nCurrent working directory: ' + os.getcwd() +'\n')
+
 root.mainloop()
 
 #print("Operating System on machine: ", os.name)
+print("Operating System on machine: ", os.uname_result)
+print("Operating System on machine: ", sys.platform)
 print("Current working directory: ",os.getcwd(),"\n")
 
 def scan_for_files_and_folders():
@@ -106,6 +116,7 @@ print("\n")
 user_message1 = input("Change Directory? (Enter yes or no)")
 if user_message1 == "yes":
     user_message1 = input("What would you like to change the directory to?")
+    os.chdir(user_message1)
     print(os.getcwd())
 elif user_message1 == "no":
     pass
