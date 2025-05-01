@@ -6,6 +6,7 @@ import shutil
 import time
 
 #initializing variables
+#lists to store files
 files_local_directory = []
 files_sub_directory = []
 folders_local_directory = []
@@ -15,19 +16,18 @@ thanks = "Thank you for checking out my program!"
 #initlializing Graphical User Interface
 window = tkinter.Tk()
 
-menu = tkinter.Menu(window)
-window.config(menu = menu)
-filemenu = tkinter.Menu(menu)
-menu.add_cascade(label='HELP', menu = filemenu)
-menu.add_command(label='ABOUT VEM', command=do_nothing)
-
 #title of Graphical User Interface
 window.title("VEM - Virtual Environment Management Program")
+
 #size of Graphical User Interface
 window.geometry("1920x1080")
 
-text_widget = tkinter.Text(window,height =1920, width =1080,font = ("Times New Roman", 20))
+#Initilazing textbox. Specifies which gui, size of text_widget we put on GUI, and size of font that is inserted to widget
+text_widget = tkinter.Text(window,height =1920, width =1080,font = ("Open Sans", 25), background= "lightyellow")
+
+#Actually placing the widget onto the GUI
 text_widget.pack()
+
 
 #function to exit program
 def exit_program():
@@ -39,6 +39,8 @@ def exit_program():
     #exit program
     sys.exit(0)
 
+#def help_gui():
+
 
 #function that is associated with the tkinter buttons created
 #still a work in progress
@@ -47,6 +49,7 @@ def clicked_button():
     user_message3 = input("Which directory homie")
     os.chdir(user_message3)
     #window.destroy()
+
     
 
 #Function to scan local folder
@@ -74,11 +77,15 @@ def scan_sub_files_and_folders():
                 folders_sub_directory.append(items)
         os.chdir(previous_dir)
         
-#Deletes all the files and directories where this program is located
+#Deletes all the files where this program is located
 def delete_all_files():
     for item in os.listdir():
         if os.path.isfile(item) and item != "praco_copy.py":
             os.remove(item)
+            
+#Deletes all folders in directory program is located            
+def delete_all_folders():
+    for item in os.listdir():
         if os.path.isdir(item):
             shutil.rmtree(item)
             
@@ -88,12 +95,18 @@ def delete_singular_file():
     for item in os.listdir():
         if os.path.isfile(item) and item == delete_question:
             os.remove(item)
-        elif os.path.isdir(item) and item == delete_question:
+        else:
+            pass
+
+#function designed to delete a single folder
+def delete_singular_folder():
+    delete_question1 = input("Which folder would you like to delete?")
+    for item in os.listdir():
+        if os.path.isdir(item) and item == delete_question1:
             shutil.rmtree(item)
         else:
             pass
         
-    
 #Function that deletes the program itself          
 def delete_self():
     for file in files_local_directory:
@@ -104,8 +117,8 @@ def delete_self():
 OP_Message = ('Operating System on machine: ' + os.name)
 Current_dir = ('\nCurrent working directory: ' + os.getcwd()+ '\n')
 
+#calling functions
 scan_for_files_and_folders()
-#delete_singular_file(usr4)
 scan_sub_files_and_folders()
 
 #Print statements
@@ -121,13 +134,31 @@ print("Files found in Sub Directory: ",files_sub_directory)
 print("\n")
 
 #more tkinter stuff, go through this and comment which each line does
+menu = tkinter.Menu(window)
+window.config(menu = menu)
+filemenu = tkinter.Menu(menu,tearoff=0)
+menu.add_cascade(label='Help',menu=filemenu)
+filemenu.add_command(label='ABOUT VEM',command = print("Not working yet"), accelerator = "CTRL-Z")
+filemenu.add_separator()
+filemenu.add_command(label='EXIT', command = window.destroy, accelerator = "CTRL-Q")
+
+#Graphical User Interface, text_widget
+text_widget.tag_configure("center", justify='center')
+text_widget.insert("1.0", "Welcome to VEM!")
+text_widget.tag_add("center", "1.0", "end")
+text_widget.insert(tkinter.END, "\n")
+text_widget.insert(tkinter.END,"\n")
 text_widget.insert(tkinter.END,OP_Message)
+
+#Buttons for GUI
 Change_dir_button = tkinter.Button(window, text = "CHANGE DIRECTORY",command= clicked_button, font = ("Times New Roman", 18))
-Change_dir_button.place(x=1000, y= 300)
-Delete_single_button = tkinter.Button(window, text = "Delete Specific File", command = delete_singular_file, font = ("Times New Roman", 18))
-Delete_single_button.place(x=1000,y=350)
+Change_dir_button.place(x=830, y= 400)
+Delete_single_button = tkinter.Button(window, text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
+Delete_single_button.place(x=830,y=450)
 Quit_button = tkinter.Button(window,text = "EXIT THE PROGRAM", command = exit_program,font = ("Times New Roman",18))
-Quit_button.place(x=1000,y=400)
+Quit_button.place(x=830,y=500)
+
+#More text_widget insertions
 text_widget.insert(tkinter.END,Current_dir)
 text_widget.insert(tkinter.END,"\n")
 text_widget.insert(tkinter.END,'Folders found in Local Directories: ')
@@ -141,3 +172,5 @@ text_widget.insert(tkinter.END,"\nFiles found in Sub Directory: ")
 text_widget.insert(tkinter.END,files_sub_directory)
 text_widget.insert(tkinter.END,"\n")
 window.mainloop()
+
+#delete_singular_folder()
