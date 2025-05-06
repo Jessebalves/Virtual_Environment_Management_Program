@@ -23,8 +23,18 @@ def exit_program():
     #exit program
     sys.exit(0)
 
-#def help_gui():
-
+def help_gui():
+    root = tkinter.Tk()
+    root.title('VEM - HELP')
+    #top = tkinter.Toplevel()
+    #top.title('Python')
+    #Initilazing textbox. Specifies which gui, size of text_widget we put on GUI, and size of font that is inserted to widget
+    text_widget_2 = tkinter.Text(root,background= "lightyellow")
+    text_widget_2.insert(tkinter.END, "Purpose of program - This program was created to manage files and folders/directory on a computer within a Graphical User Interface.\n")
+    text_widget_2.insert(tkinter.END, "\nFile - a resource in computing where you can store, record, and manipulate information. There are very many different types with different file extensions.\n")
+    text_widget_2.insert(tkinter.END, "\nFolder - a special type of file that contains files and other folders.")
+    #Actually placing the widget onto the GUI
+    text_widget_2.pack()
 
 #function that is associated with the tkinter buttons created
 #still a work in progress
@@ -138,7 +148,7 @@ menu = tkinter.Menu(window)
 window.config(menu = menu)
 filemenu = tkinter.Menu(menu,tearoff=0)
 menu.add_cascade(label='Help',menu=filemenu)
-filemenu.add_command(label='ABOUT VEM',command = print("Not working yet"), accelerator = "CTRL-Z")
+filemenu.add_command(label='ABOUT VEM',command = help_gui, accelerator = "CTRL-Z")
 filemenu.add_separator()
 filemenu.add_command(label='EXIT', command = window.destroy, accelerator = "CTRL-Q")
 
@@ -153,27 +163,27 @@ text_widget.insert(tkinter.END,OP_Message)
 #Buttons for GUI
 #change directory button
 Change_dir_button = tkinter.Button(window, text = "CHANGE DIRECTORY",command= clicked_button, font = ("Times New Roman", 18))
-Change_dir_button.place(x=730, y= 400)
+Change_dir_button.place(x=850, y= 400)
 
 #delete single folder button
 Delete_single_folder = tkinter.Button(window, text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
-Delete_single_folder.place(x = 1000, y = 450)
+Delete_single_folder.place(x = 850, y = 450)
 
 #delete single file button
 Delete_single_button = tkinter.Button(window, text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
-Delete_single_button.place(x=730,y=450)
+Delete_single_button.place(x=850,y=500)
 
 #Delete all files in current working directory
 Delete_all_files_cwd = tkinter.Button(window, text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
-Delete_all_files_cwd.place(x = 730, y =500)
+Delete_all_files_cwd.place(x = 850, y =550)
 
 #delete all folders in current working directory
 Delete_all_folders_cwd = tkinter.Button(window, text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
-Delete_all_folders_cwd.place(x = 1000, y = 500)
+Delete_all_folders_cwd.place(x = 850, y = 600)
         
 #exit program button, just closes the window and exits the program
 Quit_button = tkinter.Button(window,text = "EXIT THE PROGRAM", command = exit_program,font = ("Times New Roman",18))
-Quit_button.place(x=730,y=600)
+Quit_button.place(x=850,y=650)
 
 #More text_widget insertions
 text_widget.insert(tkinter.END,Current_dir)
@@ -188,4 +198,5 @@ text_widget.insert(tkinter.END,files_local_directory)
 text_widget.insert(tkinter.END,"\nFiles found in Sub Directory: ")
 text_widget.insert(tkinter.END,files_sub_directory)
 text_widget.insert(tkinter.END,"\n")
+
 window.mainloop()
