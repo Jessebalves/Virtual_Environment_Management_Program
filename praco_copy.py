@@ -6,6 +6,8 @@ import sys
 #main imports used to scan files/folders and remove them
 import os
 import shutil
+#used for open file
+import subprocess
 
 #initializing global variables
 #lists to store files
@@ -110,31 +112,62 @@ def help_gui():
     text_widget_2.insert(tkinter.END, "This program scans folders and files within a directory it is ran in.")
     text_widget_2.insert(tkinter.END, "This program provides users with many options to navigate the file system.\n")
     text_widget_2.insert(tkinter.END, "This program acts as a file explorer within a Python Graphical User Interface.\n")
-    text_widget_2.insert(tkinter.END, "\nFile - a resource in computing where you can store, record, and manipulate information. There are very many different types with different file extensions.\n")
-    text_widget_2.insert(tkinter.END, "\nFolder - a special type of file that contains files and other folders.\n")
-    text_widget_2.insert(tkinter.END, "\nDirectory - Is the same as a folder however slightly different. Directory refers to location in the file system of your machine.")
-    text_widget_2.insert(tkinter.END, "\nExample of a directory: /Users/YourName/Desktop/Random_Folder/\n")
-    text_widget_2.insert(tkinter.END, "\nCWD - Stands for current working directory. This means the directory we currently")
+    text_widget_2.insert(tkinter.END, "\nFile \t\t\t- a resource in computing where you can store, record, and manipulate information. There are very many different types with different file extensions.\n")
+    text_widget_2.insert(tkinter.END, "\nFolder \t\t\t- a special type of file that contains files and other folders.\n")
+    text_widget_2.insert(tkinter.END, "\nDirectory \t\t\t- Is the same as a folder however slightly different. Directory refers to location in the file system of your machine.")
+    text_widget_2.insert(tkinter.END, "\nExample of a directory \t\t\t- /Users/YourName/Desktop/Random_Folder/\n")
+    text_widget_2.insert(tkinter.END, "\nCWD \t\t\t- Stands for current working directory. This means the directory we currently")
     text_widget_2.insert(tkinter.END, " are working in/currently looking at.\n")
-    text_widget_2.insert(tkinter.END, "KEEP IN MIND - You can only delete files/folders in the current working directory.\n\n")
+    text_widget_2.insert(tkinter.END, "KEEP IN MIND \t\t\t- You can only delete files/folders in the current working directory.\n\n")
     text_widget_2.insert(tkinter.END, "This program also focuses on OS(Operating Systems), and the OS import.\n")
-    text_widget_2.insert(tkinter.END, "Operating System - Most important software component on a computer. Acts as an interface between hardware and the user.")
-    text_widget_2.insert(tkinter.END, "\nOperating Systems are responsible for managing tasks, managing memory, and managing files.\n")
+    text_widget_2.insert(tkinter.END, "Operating Systems are responsible for managing tasks, managing memory, and managing files.\n")
+    text_widget_2.insert(tkinter.END, "Operating System \t\t\t- Most important software component on a computer. Acts as an interface between hardware and the user.\n")
     text_widget_2.insert(tkinter.END, "\nThis program can display differently depending upon what operating system")
     text_widget_2.insert(tkinter.END, " your machine uses.\nThese are the operating systems present on the machines")
     text_widget_2.insert(tkinter.END, " used to develop this software.\n")
-    text_widget_2.insert(tkinter.END, "nt - Windows nt\n")
-    text_widget_2.insert(tkinter.END, "posix - Mac OS High Sierra\n")
-    text_widget_2.insert(tkinter.END, "\nButton Commands Explanation:\nOpen File - Open a specified file\n")
-    text_widget_2.insert(tkinter.END, "Copy File - Copy specified file to specified directory\n")
-    text_widget_2.insert(tkinter.END, "Change Directory - Change directory being currently looked at\n")
-    text_widget_2.insert(tkinter.END, "Delete Options - Able to delete singular items, or all items at once")
+    text_widget_2.insert(tkinter.END, "nt \t\t\t- Windows nt\n")
+    text_widget_2.insert(tkinter.END, "posix \t\t\t- Mac OS High Sierra\n")
+    text_widget_2.insert(tkinter.END, "\nButton Commands Explanation:\nOpen File \t\t\t- Open a specified file\n")
+    text_widget_2.insert(tkinter.END, "Copy File \t\t\t- Copy specified file to specified directory\n")
+    text_widget_2.insert(tkinter.END, "Copy Folder \t\t\t- Copy specified folder to current working directory\n")
+    text_widget_2.insert(tkinter.END, "Change Directory \t\t\t- Change directory being currently looked at\n")
+    text_widget_2.insert(tkinter.END, "Delete Options \t\t\t- Able to delete singular items, or all items at once")
     text_widget_2.insert(tkinter.END, ". Items in this case refer to files or folders\n")
-    text_widget_2.insert(tkinter.END, "Exit Program - Forcefully closes all windows and script\n")
+    text_widget_2.insert(tkinter.END, "Exit Program \t\t\t- Forcefully closes all windows and script\n")
     text_widget_2.insert(tkinter.END, "\nFor additional help, email Jessebalves@gmail.com.")
     
     #Actually placing the widget onto the GUI
     text_widget_2.pack()
+
+    if root.destroy:
+        all_gui_windows.remove(root)
+
+#Function associated with pressing the open file button
+def Open_File_Button():
+    user_question0 = input("Which file would you like to open? ")
+    for item in os.listdir():
+        if os.path.isfile(item) and item == user_question0:
+            #Mac OS specific code
+            if sys.platform == "darwin":
+                opener = "open"
+            #Windows 10 specific code
+            elif sys.platform == "win32":
+                os.startfile(item)
+            else:
+                opener = "xdg-open"
+            #Mac Os specific code
+            if sys.platform == "darwin":
+                subprocess.call([opener,item])
+
+def Copy_File_Button():
+    copy_file_user_input = input("Which file would you like to copy?")
+    copied_name = input("What would you like to name the copied file?")
+    shutil.copy(copy_file_user_input,copied_name)
+
+def Copy_Folder_Button():
+    copy_folder_user_input = input("Which folder would you like to copy?")
+    copy_folder_name = input("Name the copied folder: ")
+    shutil.copytree(copy_folder_user_input,copy_folder_name)
 
 #initlializing Graphical User Interface
 window = tkinter.Tk()
@@ -200,29 +233,41 @@ text_widget.insert(tkinter.END,"\n")
 text_widget.insert(tkinter.END,OP_Message)
 
 #Buttons for GUI
+
+#Open File Button
+Open_File_Button = tkinter.Button(window,text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 18))
+Open_File_Button.place(x = 850, y = 400)
+
+#Copy File Button
+Copy_File_Button = tkinter.Button(window,text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 18))
+Copy_File_Button.place(x = 850, y = 450)
+
+Copy_Folder_Button = tkinter.Button(window, text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 18))
+Copy_Folder_Button.place(x = 850, y = 500)
+
 #change directory button
 Change_dir_button = tkinter.Button(window, text = "CHANGE DIRECTORY",command= clicked_button, font = ("Times New Roman", 18))
-Change_dir_button.place(x=850, y= 400)
+Change_dir_button.place(x=850, y= 550)
 
 #delete single folder button
 Delete_single_folder = tkinter.Button(window, text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
-Delete_single_folder.place(x = 850, y = 450)
+Delete_single_folder.place(x = 850, y = 600)
 
 #delete single file button
 Delete_single_button = tkinter.Button(window, text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
-Delete_single_button.place(x=850,y=500)
+Delete_single_button.place(x=850,y=650)
 
 #Delete all files in current working directory
 Delete_all_files_cwd = tkinter.Button(window, text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
-Delete_all_files_cwd.place(x = 850, y =550)
+Delete_all_files_cwd.place(x = 850, y =700)
 
 #delete all folders in current working directory
 Delete_all_folders_cwd = tkinter.Button(window, text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
-Delete_all_folders_cwd.place(x = 850, y = 600)
+Delete_all_folders_cwd.place(x = 850, y = 750)
         
 #exit program button, just closes the window and exits the program
 Quit_button = tkinter.Button(window,text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",18))
-Quit_button.place(x=850,y=650)
+Quit_button.place(x=850,y=800)
 
 #More text_widget insertions
 text_widget.insert(tkinter.END,Current_dir)
@@ -238,5 +283,5 @@ text_widget.insert(tkinter.END,"\nFiles found in Sub Directory: ")
 text_widget.insert(tkinter.END,files_sub_directory)
 text_widget.insert(tkinter.END,"\n")
 
-
+print(sys.platform)
 window.mainloop()
