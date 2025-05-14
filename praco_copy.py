@@ -15,6 +15,8 @@ files_local_directory = []
 files_sub_directory = []
 folders_local_directory = []
 folders_sub_directory = []
+#this list stores the names of all our gui windows
+#we use this list to destroy all the windows upon exiting main window
 all_gui_windows = []
 
 #function to exit program
@@ -23,8 +25,9 @@ all_gui_windows = []
 def destroy_all_windows():
     for value in all_gui_windows:
         value.destroy()
+    #closes GUIS
     window.destroy()
-    #exit program
+    #exit program, closes terminal
     sys.exit(0)
     
 #function that is associated with the tkinter buttons created
@@ -110,7 +113,8 @@ def help_gui():
     text_widget_2.insert(tkinter.END, "This program was created to manage files and folders/directories")
     text_widget_2.insert(tkinter.END, " on a computer within a GUI (Graphical User Interface).\n")
     text_widget_2.insert(tkinter.END, "This program scans folders and files within a directory it is ran in.")
-    text_widget_2.insert(tkinter.END, "This program provides users with many options to navigate the file system.\n")
+    text_widget_2.insert(tkinter.END, "This program provides users with many options to navigate the file system. Each button has their own function.\n")
+    text_widget_2.insert(tkinter.END, "Some of the buttons prompt user input through the interface, other buttons have caution message boxes appear ensuring no accidental deletion.\n")
     text_widget_2.insert(tkinter.END, "This program acts as a file explorer within a Python Graphical User Interface.\n")
     text_widget_2.insert(tkinter.END, "\nFile \t\t\t- a resource in computing where you can store, record, and manipulate information. There are very many different types with different file extensions.\n")
     text_widget_2.insert(tkinter.END, "\nFolder \t\t\t- a special type of file that contains files and other folders.\n")
@@ -127,42 +131,90 @@ def help_gui():
     text_widget_2.insert(tkinter.END, " used to develop this software.\n")
     text_widget_2.insert(tkinter.END, "nt \t\t\t- Windows nt\n")
     text_widget_2.insert(tkinter.END, "posix \t\t\t- Mac OS High Sierra\n")
-    text_widget_2.insert(tkinter.END, "\nButton Commands Explanation:\nOpen File \t\t\t- Open a specified file\n")
-    text_widget_2.insert(tkinter.END, "Copy File \t\t\t- Copy specified file to specified directory\n")
+    text_widget_2.insert(tkinter.END, "\nButton Commands Explanation:\nOpen File \t\t\t- Open a specified file within the main directory\n")
+    text_widget_2.insert(tkinter.END, "Copy File \t\t\t- Copy specified file to main directory\n")
     text_widget_2.insert(tkinter.END, "Copy Folder \t\t\t- Copy specified folder to current working directory\n")
     text_widget_2.insert(tkinter.END, "Change Directory \t\t\t- Change directory being currently looked at\n")
     text_widget_2.insert(tkinter.END, "Delete Options \t\t\t- Able to delete singular items, or all items at once")
     text_widget_2.insert(tkinter.END, ". Items in this case refer to files or folders\n")
     text_widget_2.insert(tkinter.END, "Exit Program \t\t\t- Forcefully closes all windows and script\n")
     text_widget_2.insert(tkinter.END, "\nFor additional help, email Jessebalves@gmail.com.")
+    text_widget_2.insert(tkinter.END, "\nCopyright (c) 2024-2025 Jesse B. Alves Coding\n")
+    text_widget_2.insert(tkinter.END, "All Rights Reserved.\n\n")
+    text_widget_2.insert(tkinter.END, sys.copyright)
     
     #Actually placing the widget onto the GUI
     text_widget_2.pack()
 
+    #if this window is closed, remove it from the list since it has already been closed
     if root.destroy:
         all_gui_windows.remove(root)
 
+#model for getting input from entries
+def get_input():
+   user_input = entry.get()
+   print(user_input)
+
 #Function associated with pressing the open file button
 def Open_File_Button():
-    user_question0 = input("Which file would you like to open? ")
-    for item in os.listdir():
-        if os.path.isfile(item) and item == user_question0:
-            #Mac OS specific code
-            if sys.platform == "darwin":
-                opener = "open"
-            #Windows 10 specific code
-            elif sys.platform == "win32":
-                os.startfile(item)
-            else:
-                opener = "xdg-open"
-            #Mac Os specific code
-            if sys.platform == "darwin":
-                subprocess.call([opener,item])
+    def cancel():
+        entry.destroy()
+        button_test.destroy()
+        cancel_button.destroy()
+    def get_input():
+        user_input = entry.get()
+        for item in os.listdir():
+            if os.path.isfile(item) and item == user_input :
+                #Mac OS specific code
+                if sys.platform == "darwin":
+                    opener = "open"
+                #Windows 10 specific code
+                elif sys.platform == "win32":
+                    os.startfile(item)
+                    entry.destroy()
+                    button_test.destroy()
+                else:
+                    opener = "xdg-open"
+                #Mac Os specific code
+                if sys.platform == "darwin":
+                    subprocess.call([opener,item])
+                    entry.destroy()
+                    button_test.destroy()
+                    
+    #user input within graphical user interface
+    entry = tkinter.Entry(window, width=30)
+    entry.place(relx=0.65,rely=0.45,anchor=tkinter.CENTER)
+    #button associated with getting the user input
+    button_test = tkinter.Button(window, text = "Submit",command=get_input)
+    button_test.place(relx=0.8, rely = 0.43)
+
+    cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+    cancel_button.place(relx = 0.85, rely = 0.43)
 
 def Copy_File_Button():
-    copy_file_user_input = input("Which file would you like to copy?")
-    copied_name = input("What would you like to name the copied file?")
-    shutil.copy(copy_file_user_input,copied_name)
+    def get_input():
+        user_input = entry.get()
+        user_input1 = entry2.get()
+    
+        #copy_file_user_input = input("Which file would you like to copy?")
+        #copied_name = input("What would you like to name the copied file?")
+        shutil.copy(user_input,user_input1)
+        entry.destroy()
+        entry2.destroy()
+        button_test.destroy()
+        
+    entry = tkinter.Entry(window, width=20)
+    entry.insert(0,'File_name')
+    
+    entry2 = tkinter.Entry(window,width=20)
+    entry2.insert(0,'Copied_file_name')
+    
+    entry.place(relx=0.63,rely=0.50,anchor=tkinter.CENTER)
+    entry2.place(relx=0.75, rely=0.50, anchor = tkinter.CENTER)
+    
+    button_test = tkinter.Button(window, text = "Submit",command=get_input)
+    button_test.place(relx=0.82, rely = 0.485)
+    
 
 def Copy_Folder_Button():
     copy_folder_user_input = input("Which folder would you like to copy?")
@@ -170,7 +222,7 @@ def Copy_Folder_Button():
     shutil.copytree(copy_folder_user_input,copy_folder_name)
 
 #initlializing Graphical User Interface
-window = tkinter.Tk()
+window = tkinter.Tk()    
 
 #title of Graphical User Interface
 window.title("VEM - Virtual Environment Management Program")
@@ -232,42 +284,42 @@ text_widget.insert(tkinter.END, "\n")
 text_widget.insert(tkinter.END,"\n")
 text_widget.insert(tkinter.END,OP_Message)
 
-#Buttons for GUI
-
+#Buttons For GUI
 #Open File Button
 Open_File_Button = tkinter.Button(window,text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 18))
-Open_File_Button.place(x = 850, y = 400)
+Open_File_Button.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
 #Copy File Button
 Copy_File_Button = tkinter.Button(window,text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 18))
-Copy_File_Button.place(x = 850, y = 450)
+Copy_File_Button.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
+#Copy Folder Button
 Copy_Folder_Button = tkinter.Button(window, text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 18))
-Copy_Folder_Button.place(x = 850, y = 500)
+Copy_Folder_Button.place(relx=0.5, rely=0.55, anchor=tkinter.CENTER)
 
-#change directory button
+#Change Directory Button
 Change_dir_button = tkinter.Button(window, text = "CHANGE DIRECTORY",command= clicked_button, font = ("Times New Roman", 18))
-Change_dir_button.place(x=850, y= 550)
+Change_dir_button.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
 
-#delete single folder button
+#Delete Single Folder Button
 Delete_single_folder = tkinter.Button(window, text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
-Delete_single_folder.place(x = 850, y = 600)
+Delete_single_folder.place(relx=0.5, rely=0.65, anchor=tkinter.CENTER)
 
-#delete single file button
+#Delete Single File Button
 Delete_single_button = tkinter.Button(window, text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
-Delete_single_button.place(x=850,y=650)
+Delete_single_button.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
 
 #Delete all files in current working directory
 Delete_all_files_cwd = tkinter.Button(window, text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
-Delete_all_files_cwd.place(x = 850, y =700)
+Delete_all_files_cwd.place(relx=0.5, rely=0.75, anchor=tkinter.CENTER)
 
 #delete all folders in current working directory
 Delete_all_folders_cwd = tkinter.Button(window, text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
-Delete_all_folders_cwd.place(x = 850, y = 750)
+Delete_all_folders_cwd.place(relx=0.5, rely=0.8, anchor=tkinter.CENTER)
         
 #exit program button, just closes the window and exits the program
 Quit_button = tkinter.Button(window,text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",18))
-Quit_button.place(x=850,y=800)
+Quit_button.place(relx=0.5, rely=0.85, anchor=tkinter.CENTER)
 
 #More text_widget insertions
 text_widget.insert(tkinter.END,Current_dir)
@@ -284,4 +336,5 @@ text_widget.insert(tkinter.END,files_sub_directory)
 text_widget.insert(tkinter.END,"\n")
 
 print(sys.platform)
+#running the window
 window.mainloop()
