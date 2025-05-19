@@ -1,6 +1,7 @@
 #import used for Graphical User Interface
 import tkinter
 from tkinter import ttk
+from tkinter import messagebox
 #import used to exit system, close terminal upon exiting program
 import sys
 #main imports used to scan files/folders and remove them
@@ -66,9 +67,13 @@ def generate_gui():
             
     #Deletes all the files where this program is located
     def delete_all_files():
-        for item in os.listdir():
-            if os.path.isfile(item) and item != "praco_copy.py":
-                os.remove(item)
+        questo = messagebox.askquestion("askquestion", "Are you sure?")
+        if questo == "yes":
+            for item in os.listdir():
+                if os.path.isfile(item) and item != "praco_copy.py":
+                    os.remove(item)
+        else:
+            pass
                 
     #Deletes all folders in directory program is located            
     def delete_all_folders():
@@ -78,28 +83,74 @@ def generate_gui():
                 
     #figure out how to incorporate this function, using a button           
     def delete_singular_file():
-        delete_question = input("Which file would you like to delete? ")
-        for item in os.listdir():
-            if os.path.isfile(item) and item == delete_question:
-                os.remove(item)
-            else:
-                pass
+        def cancel():
+            entry.destroy()
+            button_test.destroy()
+            cancel_button.destroy()
+        def get_input():
+            delete_question = entry.get()
+            for item in os.listdir():
+                if os.path.isfile(item) and item == delete_question:
+                    os.remove(item)
+                    files_local_directory.remove(item)
+                else:
+                    pass
+                
+            #we destroy window and generate gui
+            #we do this to "refresh" the GUI
+            #to properly display new data in file system
+            window.destroy()
+            generate_gui()
+
+            #after deleting the specified file, destroy text box and buttons
+            entry.destroy()
+            button_test.destroy()
+            cancel_button.destroy()
+                        
+        #user input within graphical user interface
+        entry = tkinter.Entry(window, width=30)
+        entry.place(relx=0.55,rely=0.45,anchor=tkinter.CENTER)
+        
+        #button associated with getting the user input
+        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test.place(relx=0.57, rely = 0.45)
+
+        #cancel button placement and initialization
+        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button.place(relx = 0.59, rely = 0.45)
 
     #function designed to delete a single folder
     def delete_singular_folder():
-        delete_question1 = input("Which folder would you like to delete?")
-        for item in os.listdir():
-            if os.path.isdir(item) and item == delete_question1:
-                shutil.rmtree(item)
-                folders_local_directory.remove(item)
-            else:
-                pass
+        def cancel():
+            entry.destroy()
+            button_test.destroy()
+            cancel_button.destroy()
+        def get_input():
+            delete_question1 = entry.get()
+            for item in os.listdir():
+                if os.path.isdir(item) and item == delete_question1:
+                    shutil.rmtree(item)
+                    folders_local_directory.remove(item)
+                else:
+                    pass
+            #we destroy window and generate gui
+            #we do this to "refresh" the GUI
+            #to properly display new data in file system
+            window.destroy()
+            generate_gui()
+
             
-    #Function that deletes the program itself          
-    def delete_self():
-        for file in files_local_directory:
-            if file == "praco_copy.py":
-                os.remove(file)
+        #user input within graphical user interface
+        entry = tkinter.Entry(window, width=30)
+        entry.place(relx=0.55,rely=0.45,anchor=tkinter.CENTER)
+        
+        #button associated with getting the user input
+        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test.place(relx=0.57, rely = 0.45)
+
+        #cancel button placement and initialization
+        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button.place(relx = 0.59, rely = 0.45)
                 
     #function associated with help menu About VEM
     #creates another Graphical User Interface containing help documentation         
@@ -280,7 +331,7 @@ def generate_gui():
     icon_photo = tkinter.PhotoImage(file = 'cleanerrr.png') 
       
     # Setting icon of master window, this icon appears on task bar
-    #window.iconphoto(False, icon_photo)
+    window.iconphoto(False, icon_photo)
 
     #size of Graphical User Interface
     window.geometry("1920x1080")
@@ -383,5 +434,6 @@ def generate_gui():
     print(sys.platform)
     #running the window
     window.mainloop()
-
-generate_gui()
+    
+if __name__ == '__main__':
+    generate_gui()
