@@ -70,11 +70,17 @@ def generate_gui():
         questo = messagebox.askquestion("askquestion", "Are you sure?")
         if questo == "yes":
             for item in os.listdir():
-                if os.path.isfile(item) and item != "praco_copy.py":
-                    os.remove(item)
+                if os.path.isfile(item):
+                    if item =="pracoooo.py" or item =="cleanerrr.png":
+                         pass
+                    else:  
+                        os.remove(item)
+                        files_local_directory.remove(item)
+            window.destroy()
+            generate_gui()
         else:
             pass
-                
+
     #Deletes all folders in directory program is located            
     def delete_all_folders():
         for item in os.listdir():
