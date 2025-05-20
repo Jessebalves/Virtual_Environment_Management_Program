@@ -60,14 +60,41 @@ def generate_gui():
         
     #function that is associated with the tkinter buttons created
     #still a work in progress
-    def clicked_button():
+    def change_directory_button():
         print("Change directory test button")
         user_message3 = input("Which directory homie")
-        os.chdir(user_message3)
+        if os.path.exists(user_message3) == True:
+            print("This directory does exist")
+            os.chdir(user_message3)
+            window.destroy()
+
+            for item in files_sub_directory:
+                files_sub_directory.remove(item)
+            for item in folders_local_directory:
+                folders_local_directory.remove(item)
+            for item in folders_sub_directory:
+                folders_sub_directory.remove(item)
+            for items in files_local_directory:
+                files_local_directory.remove(items)
+            #for some reason, after the first for loop
+            #one file will still be present in the list
+            #this second for loop ensures removal of the
+            #singular item from the list
+            for item in files_local_directory:
+                files_local_directory.remove(item)
+
+            scan_for_files_and_folders()
+            scan_sub_files_and_folders()
+            generate_gui()
+            
+        else:
+            print("This directory does not exist")
+            
+
             
     #Deletes all the files where this program is located
     def delete_all_files():
-        questo = messagebox.askquestion("askquestion", "Are you sure?")
+        questo = messagebox.askquestion("ALERT!", "Are you sure you want to delete all files in Current working directory?")
         if questo == "yes":
             for item in os.listdir():
                 if os.path.isfile(item):
@@ -83,9 +110,17 @@ def generate_gui():
 
     #Deletes all folders in directory program is located            
     def delete_all_folders():
-        for item in os.listdir():
-            if os.path.isdir(item):
-                shutil.rmtree(item)
+        warning_box = messagebox.askquestion("ALERT!", "Are you sure you want to delete all folders in Current working directory?")
+        if warning_box == "yes":
+            for item in os.listdir():
+                if os.path.isdir(item):
+                    shutil.rmtree(item)
+                    folders_local_directory.remove(item)
+            window.destroy()
+            generate_gui()
+        else:
+            pass
+        
                 
     #figure out how to incorporate this function, using a button           
     def delete_singular_file():
@@ -334,10 +369,10 @@ def generate_gui():
     style.theme_use('classic')
 
     #photo that will be used as icon, must be present in directory
-    icon_photo = tkinter.PhotoImage(file = 'cleanerrr.png') 
+    #icon_photo = tkinter.PhotoImage(file = 'cleanerrr.png') 
       
     # Setting icon of master window, this icon appears on task bar
-    window.iconphoto(False, icon_photo)
+    #window.iconphoto(False, icon_photo)
 
     #size of Graphical User Interface
     window.geometry("1920x1080")
@@ -370,7 +405,7 @@ def generate_gui():
     print("\n")
 
     #more tkinter stuff, go through this and comment which each line does
-    menu = tkinter.Menu(window)
+    menu = tkinter.Menu(window, bg = "white")
     window.config(menu = menu)
     filemenu = tkinter.Menu(menu,tearoff=0)
     menu.add_cascade(label='Help',menu=filemenu)
@@ -402,39 +437,39 @@ def generate_gui():
 
     #Buttons For GUI
     #Open File Button
-    Open_File_Button1 = tkinter.Button(window,text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 18))
+    Open_File_Button1 = tkinter.Button(window, bg = "white", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 18))
     Open_File_Button1.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
     #Copy File Button
-    Copy_File_Button1 = tkinter.Button(window,text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 18))
+    Copy_File_Button1 = tkinter.Button(window, bg = "white",text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 18))
     Copy_File_Button1.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     #Copy Folder Button
-    Copy_Folder_Button1 = tkinter.Button(window, text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 18))
+    Copy_Folder_Button1 = tkinter.Button(window, bg = "white", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 18))
     Copy_Folder_Button1.place(relx=0.5, rely=0.55, anchor=tkinter.CENTER)
 
     #Change Directory Button
-    Change_dir_button1 = tkinter.Button(window, text = "CHANGE DIRECTORY",command= clicked_button, font = ("Times New Roman", 18))
+    Change_dir_button1 = tkinter.Button(window, bg = "white", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 18))
     Change_dir_button1.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
 
     #Delete Single Folder Button
-    Delete_single_folder1 = tkinter.Button(window, text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
+    Delete_single_folder1 = tkinter.Button(window, bg = "white", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
     Delete_single_folder1.place(relx=0.5, rely=0.65, anchor=tkinter.CENTER)
 
     #Delete Single File Button
-    Delete_single_button1 = tkinter.Button(window, text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
+    Delete_single_button1 = tkinter.Button(window, bg = "white", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
     Delete_single_button1.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
 
     #Delete all files in current working directory
-    Delete_all_files_cwd1 = tkinter.Button(window, text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
+    Delete_all_files_cwd1 = tkinter.Button(window, bg = "white", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
     Delete_all_files_cwd1.place(relx=0.5, rely=0.75, anchor=tkinter.CENTER)
 
     #delete all folders in current working directory
-    Delete_all_folders_cwd1 = tkinter.Button(window, text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
+    Delete_all_folders_cwd1 = tkinter.Button(window, bg = "white", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
     Delete_all_folders_cwd1.place(relx=0.5, rely=0.8, anchor=tkinter.CENTER)
                 
     #exit program button, just closes the window and exits the program
-    Quit_button1 = tkinter.Button(window,text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",18))
+    Quit_button1 = tkinter.Button(window, bg = "white", text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",18))
     Quit_button1.place(relx=0.5, rely=0.85, anchor=tkinter.CENTER)
 
     print(sys.platform)
