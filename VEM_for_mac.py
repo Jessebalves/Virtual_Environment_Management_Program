@@ -17,7 +17,9 @@ files_sub_directory = []
 folders_local_directory = []
 folders_sub_directory = []
 all_gui_windows = []
+icon_photo_location = (os.getcwd() + "/cleanerrr.png")
 
+#function associated with initial scan of CWD
 def scan_for_files_and_folders():
     try:
         for item in os.listdir():
@@ -30,8 +32,8 @@ def scan_for_files_and_folders():
     finally:
         return folders_local_directory and files_local_directory
 
-    #this function is dependent on folders and files locally being returned
-    #function used to scan sub directories
+#this function is dependent on folders and files locally being returned
+#function used to scan sub directories(in other words, folders attached to CWD)
 def scan_sub_files_and_folders():
     for value in folders_local_directory:
         previous_dir = os.getcwd()
@@ -43,9 +45,14 @@ def scan_sub_files_and_folders():
                 folders_sub_directory.append(items)
         os.chdir(previous_dir)
 
+#section of code signifying the start of the program
+#initial scan for data before populating GUI
+print("VEM starting...")
+print("Beginning initial scan of directories")
 scan_for_files_and_folders()
 scan_sub_files_and_folders()
 
+#main function to create a GUI
 def generate_gui():
     #function to exit program
     #destroys all windows open
@@ -56,10 +63,10 @@ def generate_gui():
         #closes GUIS
         window.destroy()
         #exit program, closes terminal
+        print("Closing VEM...")
         sys.exit(0)
         
-    #function that is associated with the tkinter buttons created
-    #still a work in progress
+    #Function associated with Change Directory button
     def change_directory_button():
         print("Change directory test button")
         user_message3 = input("Which directory homie")
@@ -208,25 +215,25 @@ def generate_gui():
         root = tkinter.Tk()
         all_gui_windows.append(root)
         root.title('VEM - HELP')
-        root.geometry("1920x1080")
+        root.geometry("640x480")
         #Initilazing textbox. Specifies which gui, size of text_widget we put on GUI, and size of font that is inserted to widget
-        text_widget_2 = tkinter.Text(root,height = "1920", width = "1080",font = ("Times New Roman",16),background= "lightyellow")
+        text_widget_2 = tkinter.Text(root,height = "1920", width = "1080",font = ("Times New Roman",12),background= "lightyellow")
         text_widget_2.insert(tkinter.END, "This program was created to manage files and folders/directories")
         text_widget_2.insert(tkinter.END, " on a computer within a GUI (Graphical User Interface).\n")
         text_widget_2.insert(tkinter.END, "This program scans folders and files within a directory it is ran in.")
         text_widget_2.insert(tkinter.END, "This program provides users with many options to navigate the file system. Each button has their own function.\n")
         text_widget_2.insert(tkinter.END, "Some of the buttons prompt user input through the interface, other buttons have caution message boxes appear ensuring no accidental deletion.\n")
         text_widget_2.insert(tkinter.END, "This program acts as a file explorer within a Python Graphical User Interface.\n")
-        text_widget_2.insert(tkinter.END, "\nFile \t\t\t- a resource in computing where you can store, record, and manipulate information. There are very many different types with different file extensions.\n")
+        text_widget_2.insert(tkinter.END, "\nFile \t\t\t- a resource in computing where you can store, record, and manipulate \n\t\t\tinformation. There are very many different types with different file extensions.\n")
         text_widget_2.insert(tkinter.END, "\nFolder \t\t\t- a special type of file that contains files and other folders.\n")
         text_widget_2.insert(tkinter.END, "\nDirectory \t\t\t- Is the same as a folder however slightly different. Directory refers to location in the file system of your machine.")
         text_widget_2.insert(tkinter.END, "\nExample of a directory \t\t\t- /Users/YourName/Desktop/Random_Folder/\n")
         text_widget_2.insert(tkinter.END, "\nCWD \t\t\t- Stands for current working directory. This means the directory we currently")
-        text_widget_2.insert(tkinter.END, " are working in/currently looking at.\n")
+        text_widget_2.insert(tkinter.END, " are working \n\t\t\tin/currently looking at.\n")
         text_widget_2.insert(tkinter.END, "KEEP IN MIND \t\t\t- You can only delete files/folders in the current working directory.\n\n")
         text_widget_2.insert(tkinter.END, "This program also focuses on OS(Operating Systems), and the OS import.\n")
         text_widget_2.insert(tkinter.END, "Operating Systems are responsible for managing tasks, managing memory, and managing files.\n")
-        text_widget_2.insert(tkinter.END, "Operating System \t\t\t- Most important software component on a computer. Acts as an interface between hardware and the user.\n")
+        text_widget_2.insert(tkinter.END, "Operating System \t\t\t- Most important software component on a computer. Acts as an \n\t\t\tinterface between hardware and the user.\n")
         text_widget_2.insert(tkinter.END, "\nThis program can display differently depending upon what operating system")
         text_widget_2.insert(tkinter.END, " your machine uses.\nThese are the operating systems present on the machines")
         text_widget_2.insert(tkinter.END, " used to develop this software.\n")
@@ -284,15 +291,17 @@ def generate_gui():
             cancel_button.destroy()
                         
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=30)
-        entry.place(relx=0.65,rely=0.45,anchor=tkinter.CENTER)
+        entry = tkinter.Entry(window, width=15)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
+        entry.insert(0,"file_name.file_type")
         #button associated with getting the user input
         button_test = tkinter.Button(window, text = "Submit",command=get_input)
-        button_test.place(relx=0.8, rely = 0.43)
+        button_test.place(relx=0.65, rely = 0.7)
 
         cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
-        cancel_button.place(relx = 0.85, rely = 0.43)
+        cancel_button.place(relx = 0.77, rely = 0.7)
 
+    #Function associated with pressing the Copy File Button
     def Copy_File_Button():
         def cancel():
             entry.destroy()
@@ -311,20 +320,20 @@ def generate_gui():
             button_test.destroy()
             cancel_button.destroy()
             
-        entry = tkinter.Entry(window, width=20)
+        entry = tkinter.Entry(window, width=15)
         entry.insert(0,'File_name')
         
-        entry2 = tkinter.Entry(window,width=20)
+        entry2 = tkinter.Entry(window,width=15)
         entry2.insert(0,'Copied_file_name')
         
-        entry.place(relx=0.63,rely=0.50,anchor=tkinter.CENTER)
-        entry2.place(relx=0.75, rely=0.50, anchor = tkinter.CENTER)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
+        entry2.place(relx=0.53, rely=0.78, anchor = tkinter.CENTER)
         
         button_test = tkinter.Button(window, text = "Submit",command=get_input)
-        button_test.place(relx=0.82, rely = 0.485)
+        button_test.place(relx=0.65, rely = 0.7)
 
         cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
-        cancel_button.place(relx = 0.88, rely = 0.485)
+        cancel_button.place(relx = 0.77, rely = 0.7)
         
 
     #Function associated with Copy Folder Button on Graphical User Interface
@@ -377,17 +386,23 @@ def generate_gui():
     style = ttk.Style(window)
     style.theme_use('classic')
 
-    #photo that will be used as icon, must be present in directory
-    #icon_photo = tkinter.PhotoImage(file = 'cleanerrr.png') 
+    #exception handling that deals with the condition that the program's
+    #icon photo cannot be located within the file system
+    try:
+        #photo that will be used as icon, must be present in directory
+        icon_photo = tkinter.PhotoImage(file = icon_photo_location)
       
-    # Setting icon of master window, this icon appears on task bar
-    #window.iconphoto(False, icon_photo)
+        # Setting icon of master window, this icon appears on task bar
+        window.iconphoto(False, icon_photo)
+    except tkinter.TclError as e:
+        print("There was an error loading the icon photo")
+        print("Make sure VEM is initally ran in the same folder as icon photo")
 
     #size of Graphical User Interface
-    window.geometry("1920x1080")
+    window.geometry("640x480")
 
     #Initilazing textbox. Specifies which gui, size of text_widget we put on GUI, and size of font that is inserted to widget
-    text_widget = tkinter.Text(window,height =1920, width =1080,font = ("Open Sans", 25), background= "lightyellow")
+    text_widget = tkinter.Text(window,height =640, width =480,font = ("Open Sans", 12), background= "lightyellow")
 
     #Actually placing the widget onto the GUI
     text_widget.pack()
@@ -397,11 +412,8 @@ def generate_gui():
     OP_Message = ('Operating System on machine: ' + os.name)
     Current_dir = ('\nCurrent working directory: ' + os.getcwd()+ '\n')
 
-    #calling functions
-    #scan_for_files_and_folders()
-    #scan_sub_files_and_folders()
-
     #Print statements
+    print("\nStarting to pack GUI with following data: ")
     print("Operating System on machine: ", os.name)
     print("Operating System on machine: ", os.uname_result)
     print("Operating System on machine: ", sys.platform)
@@ -411,7 +423,6 @@ def generate_gui():
     print("\n")
     print("Files found in Main Directory: ",files_local_directory)
     print("Files found in Sub Directory: ",files_sub_directory)
-    print("\n")
 
     #more tkinter stuff, go through this and comment which each line does
     menu = tkinter.Menu(window, bg = "white")
@@ -432,56 +443,55 @@ def generate_gui():
 
     #More text_widget insertions
     text_widget.insert(tkinter.END,Current_dir)
-    text_widget.insert(tkinter.END,"\n")
-    text_widget.insert(tkinter.END,'Folders found in Local Directories: ')
+    text_widget.insert(tkinter.END,"\nFiles found in Main Directory: ")
+    text_widget.insert(tkinter.END,files_local_directory)
+    text_widget.insert(tkinter.END,'\nFolders found in Local Directories: ')
     text_widget.insert(tkinter.END,folders_local_directory)
+    text_widget.insert(tkinter.END,"\n")
     text_widget.insert(tkinter.END,'\nFolders found in Sub Directories: ')
     text_widget.insert(tkinter.END,folders_sub_directory)
     text_widget.insert(tkinter.END,"\n")
-    text_widget.insert(tkinter.END,"\nFiles found in Main Directory: ")
-    text_widget.insert(tkinter.END,files_local_directory)
     text_widget.insert(tkinter.END,"\nFiles found in Sub Directory: ")
     text_widget.insert(tkinter.END,files_sub_directory)
     text_widget.insert(tkinter.END,"\n")
 
     #Buttons For GUI
     #Open File Button
-    Open_File_Button1 = tkinter.Button(window, bg = "white", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 18))
-    Open_File_Button1.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
+    Open_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 12))
+    Open_File_Button1.place(relx=0.4, rely=0.45, anchor=tkinter.CENTER)
 
     #Copy File Button
-    Copy_File_Button1 = tkinter.Button(window, bg = "white",text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 18))
-    Copy_File_Button1.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+    Copy_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white",text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 12))
+    Copy_File_Button1.place(relx=0.69, rely=0.45, anchor=tkinter.CENTER)
 
     #Copy Folder Button
-    Copy_Folder_Button1 = tkinter.Button(window, bg = "white", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 18))
-    Copy_Folder_Button1.place(relx=0.5, rely=0.55, anchor=tkinter.CENTER)
+    Copy_Folder_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 12))
+    Copy_Folder_Button1.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
 
     #Change Directory Button
-    Change_dir_button1 = tkinter.Button(window, bg = "white", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 18))
-    Change_dir_button1.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
+    Change_dir_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 12))
+    Change_dir_button1.place(relx=0.69, rely=0.5, anchor=tkinter.CENTER)
 
     #Delete Single Folder Button
-    Delete_single_folder1 = tkinter.Button(window, bg = "white", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 18))
-    Delete_single_folder1.place(relx=0.5, rely=0.65, anchor=tkinter.CENTER)
+    Delete_single_folder1 = tkinter.Button(window, height= -5, width = 25, bg = "white", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 12))
+    Delete_single_folder1.place(relx=0.4, rely=0.55, anchor=tkinter.CENTER)
 
     #Delete Single File Button
-    Delete_single_button1 = tkinter.Button(window, bg = "white", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 18))
-    Delete_single_button1.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
+    Delete_single_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 12))
+    Delete_single_button1.place(relx=0.69, rely=0.55, anchor=tkinter.CENTER)
 
     #Delete all files in current working directory
-    Delete_all_files_cwd1 = tkinter.Button(window, bg = "white", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 18))
-    Delete_all_files_cwd1.place(relx=0.5, rely=0.75, anchor=tkinter.CENTER)
+    Delete_all_files_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 12))
+    Delete_all_files_cwd1.place(relx=0.4, rely=0.6, anchor=tkinter.CENTER)
 
     #delete all folders in current working directory
-    Delete_all_folders_cwd1 = tkinter.Button(window, bg = "white", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 18))
-    Delete_all_folders_cwd1.place(relx=0.5, rely=0.8, anchor=tkinter.CENTER)
+    Delete_all_folders_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 12))
+    Delete_all_folders_cwd1.place(relx=0.69, rely=0.6, anchor=tkinter.CENTER)
                 
     #exit program button, just closes the window and exits the program
-    Quit_button1 = tkinter.Button(window, bg = "white", text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",18))
-    Quit_button1.place(relx=0.5, rely=0.85, anchor=tkinter.CENTER)
+    Quit_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",12))
+    Quit_button1.place(relx=0.53, rely=0.65, anchor=tkinter.CENTER)
 
-    print(sys.platform)
     #running the window
     window.mainloop()
     
