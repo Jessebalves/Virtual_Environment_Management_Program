@@ -8,6 +8,6 @@ within the directory this program is ran in.
 For example, if this file is in a folder with a bunch of important files and then ran, you will delete all the other files.  
 
   To Do List(Note: A majority of the programs core functions are completed):  
-  1. Make the graphical user interface look more appealing/user friendly
+  1. Make the graphical user interface look more appealing/user friendly(Consider customtkinter)
   2. Change the dimensions of the Graphical User interface so it doesn't take up entirety of the screen.
-  3. 
+  3. Clean up code/document code to make it easier to read and maintain.  
