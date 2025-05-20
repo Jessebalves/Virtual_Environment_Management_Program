@@ -1,5 +1,11 @@
 Note: Praco_copy.py is the earlier version of the progarm without nested functions  
-Pracoooo.py is the newer version where a majority of the program's functions are nested within the generate_gui() function 
+Pracoooo.py is the newer version where a majority of the program's functions are nested within the generate_gui() function  
+
+Attention!: There is two different copies, VEM_for_mac.py and VEM_for_wind.py, indicating which system the program is meant to be run on.  
+VEM_for_mac is for MacOS based systems (Developing with MacOS High Sierra)  
+VEM_for_wind is for Windows based systems (Developing with Personal Computer with Windows10 operating system)  
+The split into two different versions was done after the change directory button was throwing errors on Mac systems but not Windows Systems, this was done for myself to make development less of a headache.  
+Goal: Make it so that I do not have to have seperate versions, i.e. Change directory button works on both machines without any issues.  
   
 Main purpose of program : efficient and clean way to delete unwanted folders and files in bulk. 
 Personal use: Quick way to free memory space on machine, clean up virtual machine directories.   
