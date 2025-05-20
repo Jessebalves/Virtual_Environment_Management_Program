@@ -1,17 +1,19 @@
-Note: Praco_copy.py is the earlier version of the progarm without nested functions  
+NOTE: Praco_copy.py is the earliest version of the program without nested functions  
 Pracoooo.py is the newer version where a majority of the program's functions are nested within the generate_gui() function  
+This was done because of an issue with refreshing gui with new data.  
 
-Attention!: There is two different copies, VEM_for_mac.py and VEM_for_wind.py, indicating which system the program is meant to be run on.  
-VEM_for_mac is for MacOS based systems (Developing with MacOS High Sierra)  
-VEM_for_wind is for Windows based systems (Developing with Personal Computer with Windows10 operating system)  
-The split into two different versions was done after the change directory button was throwing errors on Mac systems but not Windows Systems, this was done for myself to make development less of a headache.  
-Goal: Make it so that I do not have to have seperate versions, i.e. Change directory button works on both machines without any issues.  
+ATTENTION: There is two different copies, VEM_for_mac.py and VEM_for_wind.py, indicating which system the program is meant to be run on.  
+VEM_for_mac.py is for MacOS based systems (Developed using MacOS High Sierra).  
+VEM_for_wind is for Windows based systems (Developing with Personal Computer with Windows10 operating system).  
   
-Main purpose of program : efficient and clean way to delete unwanted folders and files in bulk. 
+The split into two different versions was done after the change directory button was throwing errors on Mac systems but not Windows Systems, this was done for myself to make development less of a headache.  
+GOAL: Make it so that I do not have to have seperate versions, i.e. Change directory button works on both machines without any issues.  
+  
+MAIN PURPOSE OF PROGRAM: efficient and clean way to delete unwanted folders and files in bulk. 
 Personal use: Quick way to free memory space on machine, clean up virtual machine directories.   
-USE WITH CAUTION!This file will delete both files and folders/directories contained 
-within the directory this program is ran in. This deleted files and folders will not appear in the recycle bin, they will automatically be deleted.     
-For example, if this file is in a folder with a bunch of important files and then ran, you will delete all the other files.  
+  
+NOTE FOR USERS: USE WITH CAUTION! This program is capable of deleting both files and folders/directories. These deleted files and folders will not appear in the recycle bin, they will automatically be deleted.      
+For example, if this file is in a folder with a bunch of important files and then executed, and you mistakenly hit the delete button on the GUI, it can delete all your files/folders.So please be careful using this program.  
 
   To Do List(Note: A majority of the programs core functions are completed):  
   1. Make the graphical user interface look more appealing/user friendly(Consider customtkinter)
