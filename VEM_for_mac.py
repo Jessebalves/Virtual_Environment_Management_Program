@@ -17,6 +17,8 @@ files_sub_directory = []
 folders_local_directory = []
 folders_sub_directory = []
 all_gui_windows = []
+#we need to use directory location for this variable
+#this is because we can constantly change directories
 icon_photo_location = (os.getcwd() + "/cleanerrr.png")
 
 #function associated with initial scan of CWD
@@ -68,43 +70,62 @@ def generate_gui():
         
     #Function associated with Change Directory button
     def change_directory_button():
-        print("Change directory test button")
-        user_message3 = input("Which directory homie")
-        if os.path.exists(user_message3) == True:
-            print("This directory does exist")
-            
-            os.chdir(user_message3)
-            window.destroy()
-            
-
-            for item in files_sub_directory:
-                files_sub_directory.remove(item)
-                files_sub_directory.clear()
+        def cancel():
+            entry.destroy()
+            button_test.destroy()
+            cancel_button.destroy()
+        def get_input():
+            user_message3 = entry.get()
+            if os.path.exists(user_message3) == True:
+                print("This directory does exist")
                 
-            for item in folders_local_directory:
-                folders_local_directory.remove(item)
-                folders_local_directory.clear()
+                os.chdir(user_message3)
+                window.destroy()
                 
-            for item in folders_sub_directory:
-                folders_sub_directory.remove(item)
-                folders_sub_directory.clear()
+
+                for item in files_sub_directory:
+                    files_sub_directory.remove(item)
+                    files_sub_directory.clear()
+                    
+                for item in folders_local_directory:
+                    folders_local_directory.remove(item)
+                    folders_local_directory.clear()
+                    
+                for item in folders_sub_directory:
+                    folders_sub_directory.remove(item)
+                    folders_sub_directory.clear()
+                    
+                for items in files_local_directory:
+                    files_local_directory.remove(items)
+                    files_local_directory.clear()
+
+
+                print(files_sub_directory)
+                print(folders_local_directory)
+                print(folders_sub_directory)
+                print(files_local_directory)
+
+                scan_for_files_and_folders()
+                scan_sub_files_and_folders()
+                generate_gui()
                 
-            for items in files_local_directory:
-                files_local_directory.remove(items)
-                files_local_directory.clear()
+            else:
+                print("This directory does not exist")
+    
+            entry.destroy()
+            button_test.destroy()
+            cancel_button.destroy()
+                        
+        #user input within graphical user interface
+        entry = tkinter.Entry(window, width=15)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
+        entry.insert(0,"directory name")
+        #button associated with getting the user input
+        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test.place(relx=0.65, rely = 0.7)
 
-
-            print(files_sub_directory)
-            print(folders_local_directory)
-            print(folders_sub_directory)
-            print(files_local_directory)
-
-            scan_for_files_and_folders()
-            scan_sub_files_and_folders()
-            generate_gui()
-            
-        else:
-            print("This directory does not exist")
+        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button.place(relx = 0.77, rely = 0.7)
             
 
             
@@ -165,16 +186,16 @@ def generate_gui():
             cancel_button.destroy()
                         
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=30)
-        entry.place(relx=0.55,rely=0.45,anchor=tkinter.CENTER)
+        entry = tkinter.Entry(window, width=15)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
         
         #button associated with getting the user input
         button_test = tkinter.Button(window, text = "Submit",command=get_input)
-        button_test.place(relx=0.57, rely = 0.45)
+        button_test.place(relx=0.65, rely = 0.7)
 
         #cancel button placement and initialization
         cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
-        cancel_button.place(relx = 0.59, rely = 0.45)
+        cancel_button.place(relx = 0.77, rely = 0.7)
 
     #function designed to delete a single folder
     def delete_singular_folder():
@@ -198,16 +219,16 @@ def generate_gui():
 
             
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=30)
-        entry.place(relx=0.55,rely=0.45,anchor=tkinter.CENTER)
+        entry = tkinter.Entry(window, width=15)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
         
         #button associated with getting the user input
         button_test = tkinter.Button(window, text = "Submit",command=get_input)
-        button_test.place(relx=0.57, rely = 0.45)
+        button_test.place(relx=0.65, rely = 0.7)
 
         #cancel button placement and initialization
         cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
-        cancel_button.place(relx = 0.59, rely = 0.45)
+        cancel_button.place(relx = 0.77, rely = 0.7)
                 
     #function associated with help menu About VEM
     #creates another Graphical User Interface containing help documentation         
@@ -217,7 +238,7 @@ def generate_gui():
         root.title('VEM - HELP')
         root.geometry("640x480")
         #Initilazing textbox. Specifies which gui, size of text_widget we put on GUI, and size of font that is inserted to widget
-        text_widget_2 = tkinter.Text(root,height = "1920", width = "1080",font = ("Times New Roman",12),background= "lightyellow")
+        text_widget_2 = tkinter.Text(root,height = "640", width = "480",font = ("Times New Roman",12),background= "lightyellow")
         text_widget_2.insert(tkinter.END, "This program was created to manage files and folders/directories")
         text_widget_2.insert(tkinter.END, " on a computer within a GUI (Graphical User Interface).\n")
         text_widget_2.insert(tkinter.END, "This program scans folders and files within a directory it is ran in.")
@@ -226,7 +247,7 @@ def generate_gui():
         text_widget_2.insert(tkinter.END, "This program acts as a file explorer within a Python Graphical User Interface.\n")
         text_widget_2.insert(tkinter.END, "\nFile \t\t\t- a resource in computing where you can store, record, and manipulate \n\t\t\tinformation. There are very many different types with different file extensions.\n")
         text_widget_2.insert(tkinter.END, "\nFolder \t\t\t- a special type of file that contains files and other folders.\n")
-        text_widget_2.insert(tkinter.END, "\nDirectory \t\t\t- Is the same as a folder however slightly different. Directory refers to location in the file system of your machine.")
+        text_widget_2.insert(tkinter.END, "\nDirectory \t\t\t- Is the same as a folder however slightly different. Directory refers to \n\t\t\tlocation in the file system of your machine.")
         text_widget_2.insert(tkinter.END, "\nExample of a directory \t\t\t- /Users/YourName/Desktop/Random_Folder/\n")
         text_widget_2.insert(tkinter.END, "\nCWD \t\t\t- Stands for current working directory. This means the directory we currently")
         text_widget_2.insert(tkinter.END, " are working \n\t\t\tin/currently looking at.\n")
@@ -361,20 +382,20 @@ def generate_gui():
             button_test.destroy()
             cancel_button.destroy()
 
-        entry = tkinter.Entry(window, width=20)
+        entry = tkinter.Entry(window, width=15)
         entry.insert(0,'Folder name')
         
-        entry2 = tkinter.Entry(window,width=20)
+        entry2 = tkinter.Entry(window,width=15)
         entry2.insert(0,'Copied_folder_name')
         
-        entry.place(relx=0.63,rely=0.565,anchor=tkinter.CENTER)
-        entry2.place(relx=0.75, rely=0.565, anchor = tkinter.CENTER)
+        entry.place(relx=0.53,rely=0.73,anchor=tkinter.CENTER)
+        entry2.place(relx=0.53, rely=0.78, anchor = tkinter.CENTER)
         
         button_test = tkinter.Button(window, text = "Submit",command=get_input)
-        button_test.place(relx=0.82, rely = 0.565)
+        button_test.place(relx=0.65, rely = 0.7)
 
         cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
-        cancel_button.place(relx = 0.88, rely = 0.565)
+        cancel_button.place(relx = 0.77, rely = 0.7)
 
     #initlializing Graphical User Interface
     window = tkinter.Tk()    
@@ -413,7 +434,7 @@ def generate_gui():
     Current_dir = ('\nCurrent working directory: ' + os.getcwd()+ '\n')
 
     #Print statements
-    print("\nStarting to pack GUI with following data: ")
+    print("\nStarting to pack GUI with the following data: ")
     print("Operating System on machine: ", os.name)
     print("Operating System on machine: ", os.uname_result)
     print("Operating System on machine: ", sys.platform)
@@ -494,6 +515,7 @@ def generate_gui():
 
     #running the window
     window.mainloop()
-    
+
+#main method 
 if __name__ == '__main__':
     generate_gui()
