@@ -479,39 +479,39 @@ def generate_gui():
     #Buttons For GUI
     #Open File Button
     Open_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 12))
-    Open_File_Button1.place(relx=0.4, rely=0.45, anchor=tkinter.CENTER)
+    Open_File_Button1.place(relx=0.37, rely=0.45, anchor=tkinter.CENTER)
 
     #Copy File Button
     Copy_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white",text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 12))
-    Copy_File_Button1.place(relx=0.69, rely=0.45, anchor=tkinter.CENTER)
+    Copy_File_Button1.place(relx=0.66, rely=0.45, anchor=tkinter.CENTER)
 
     #Copy Folder Button
     Copy_Folder_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 12))
-    Copy_Folder_Button1.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
+    Copy_Folder_Button1.place(relx=0.37, rely=0.5, anchor=tkinter.CENTER)
 
     #Change Directory Button
     Change_dir_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 12))
-    Change_dir_button1.place(relx=0.69, rely=0.5, anchor=tkinter.CENTER)
+    Change_dir_button1.place(relx=0.66, rely=0.5, anchor=tkinter.CENTER)
 
     #Delete Single Folder Button
     Delete_single_folder1 = tkinter.Button(window, height= -5, width = 25, bg = "white", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 12))
-    Delete_single_folder1.place(relx=0.4, rely=0.55, anchor=tkinter.CENTER)
+    Delete_single_folder1.place(relx=0.37, rely=0.55, anchor=tkinter.CENTER)
 
     #Delete Single File Button
     Delete_single_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 12))
-    Delete_single_button1.place(relx=0.69, rely=0.55, anchor=tkinter.CENTER)
+    Delete_single_button1.place(relx=0.66, rely=0.55, anchor=tkinter.CENTER)
 
     #Delete all files in current working directory
     Delete_all_files_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 12))
-    Delete_all_files_cwd1.place(relx=0.4, rely=0.6, anchor=tkinter.CENTER)
+    Delete_all_files_cwd1.place(relx=0.37, rely=0.6, anchor=tkinter.CENTER)
 
     #delete all folders in current working directory
     Delete_all_folders_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 12))
-    Delete_all_folders_cwd1.place(relx=0.69, rely=0.6, anchor=tkinter.CENTER)
+    Delete_all_folders_cwd1.place(relx=0.66, rely=0.6, anchor=tkinter.CENTER)
                 
     #exit program button, just closes the window and exits the program
     Quit_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "EXIT THE PROGRAM", command = destroy_all_windows,font = ("Times New Roman",12))
-    Quit_button1.place(relx=0.53, rely=0.65, anchor=tkinter.CENTER)
+    Quit_button1.place(relx=0.50, rely=0.65, anchor=tkinter.CENTER)
 
     #running the window
     window.mainloop()
