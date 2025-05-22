@@ -1,7 +1,3 @@
-NOTE: Praco_copy.py is the earliest version of the program without nested functions  
-Pracoooo.py is the newer version where a majority of the program's functions are nested within the generate_gui() function  
-This was done because of an issue with refreshing gui with new data.  
-
 ATTENTION: There is two different copies, VEM_for_mac.py and VEM_for_wind.py, indicating which system the program is meant to be run on.  
 VEM_for_mac.py is for MacOS based systems (Developed using MacOS High Sierra).  
 VEM_for_wind is for Windows based systems (Developing with Personal Computer with Windows10 operating system).  
