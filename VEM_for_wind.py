@@ -117,14 +117,14 @@ def generate_gui():
             cancel_button.destroy()
                         
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.pack()
         entry.insert(0,"directory name")
         #button associated with getting the user input
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit",width = 20, command=get_input)
         button_test.pack()
 
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel",width = 20, command=cancel)
         cancel_button.pack()
             
 
@@ -186,15 +186,15 @@ def generate_gui():
             cancel_button.destroy()
                         
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.pack()
         
         #button associated with getting the user input
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit",width = 20,command=get_input)
         button_test.pack()
 
         #cancel button placement and initialization
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel",width = 20,command=cancel)
         cancel_button.pack()
 
     #function designed to delete a single folder
@@ -219,15 +219,15 @@ def generate_gui():
 
             
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.pack()
         
         #button associated with getting the user input
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit",width = 20,command=get_input)
         button_test.pack()
 
         #cancel button placement and initialization
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel",width = 20,command=cancel)
         cancel_button.pack()
                 
     #function associated with help menu About VEM
@@ -279,10 +279,6 @@ def generate_gui():
         if root.destroy:
             all_gui_windows.remove(root)
 
-    #model for getting input from entries
-    def get_input():
-       user_input = entry.get()
-       print(user_input)
 
     #Function associated with pressing the open file button
     def Open_File_Button():
@@ -312,15 +308,15 @@ def generate_gui():
             cancel_button.destroy()
                         
         #user input within graphical user interface
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.pack()
         entry.insert(0,"file_name.file_type")
         
         #button associated with getting the user input
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit", width = 20, command=get_input)
         button_test.pack()
 
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel", width = 20, command=cancel)
         cancel_button.pack()
 
     #Function associated with pressing the Copy File Button
@@ -342,19 +338,19 @@ def generate_gui():
             button_test.destroy()
             cancel_button.destroy()
             
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.insert(0,'File_name')
         
-        entry2 = tkinter.Entry(window,width=15)
+        entry2 = tkinter.Entry(window,width=25)
         entry2.insert(0,'Copied_file_name')
 
         entry.pack()
         entry2.pack()
         
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit", width = 20, command=get_input)
         button_test.pack()
 
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel", width = 20, command=cancel)
         cancel_button.pack()
         
 
@@ -383,19 +379,19 @@ def generate_gui():
             button_test.destroy()
             cancel_button.destroy()
 
-        entry = tkinter.Entry(window, width=15)
+        entry = tkinter.Entry(window, width=25)
         entry.insert(0,'Folder name')
         
-        entry2 = tkinter.Entry(window,width=15)
+        entry2 = tkinter.Entry(window,width=25)
         entry2.insert(0,'Copied_folder_name')
         
         entry.pack()
         entry2.pack()
         
-        button_test = tkinter.Button(window, text = "Submit",command=get_input)
+        button_test = tkinter.Button(window, text = "Submit",width = 20,command=get_input)
         button_test.pack()
 
-        cancel_button = tkinter.Button(window,text="Cancel",command=cancel)
+        cancel_button = tkinter.Button(window,text="Cancel",width = 20,command=cancel)
         cancel_button.pack()
 
     #initlializing Graphical User Interface
@@ -501,35 +497,35 @@ def generate_gui():
     
     #Buttons For GUI
     #Open File Button
-    Open_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 12))
+    Open_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "OPEN FILE", command = Open_File_Button, font = ("Times New Roman", 12))
     Open_File_Button1.pack()
 
     #Copy File Button
-    Copy_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 12))
+    Copy_File_Button1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "COPY FILE", command = Copy_File_Button, font = ("Times New Roman", 12))
     Copy_File_Button1.pack()
 
     #Copy Folder Button
-    Copy_Folder_Button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 12))
+    Copy_Folder_Button1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "COPY FOLDER", command = Copy_Folder_Button, font = ("Times New Roman", 12))
     Copy_Folder_Button1.pack()
 
     #Change Directory Button
-    Change_dir_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 12))
+    Change_dir_button1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "CHANGE DIRECTORY",command = change_directory_button, font = ("Times New Roman", 12))
     Change_dir_button1.pack()
 
     #Delete Single Folder Button
-    Delete_single_folder1 = tkinter.Button(window, height= -5, width = 25, bg = "white", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 12))
+    Delete_single_folder1 = tkinter.Button(window, height= -5, width = 25, bg = "lightblue", text = "DELETE SINGLE FOLDER", command = delete_singular_folder, font = ("Times New Roman", 12))
     Delete_single_folder1.pack()
 
     #Delete Single File Button
-    Delete_single_button1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 12))
+    Delete_single_button1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "DELETE SINGLE FILE", command = delete_singular_file, font = ("Times New Roman", 12))
     Delete_single_button1.pack()
 
     #Delete all files in current working directory
-    Delete_all_files_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 12))
+    Delete_all_files_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "DELETE ALL FILES (CWD)", command = delete_all_files, font = ("Times New Roman", 12))
     Delete_all_files_cwd1.pack()
 
     #delete all folders in current working directory
-    Delete_all_folders_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "white", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 12))
+    Delete_all_folders_cwd1 = tkinter.Button(window, height= -5, width=25, bg = "lightblue", text = "DELETE ALL FOLDERS(CWD)", command = delete_all_folders, font = ("Times New Roman", 12))
     Delete_all_folders_cwd1.pack()
                 
     #exit program button, just closes the window and exits the program
