@@ -135,7 +135,7 @@ def generate_gui():
         if questo == "yes":
             for item in os.listdir():
                 if os.path.isfile(item):
-                    if item =="VEM_for_mac.py" or item =="cleanerrr.png":
+                    if item =="VEM_for_wind.py" or item =="cleanerrr.png":
                          pass
                     else:  
                         os.remove(item)
@@ -333,10 +333,13 @@ def generate_gui():
             #copy_file_user_input = input("Which file would you like to copy?")
             #copied_name = input("What would you like to name the copied file?")
             shutil.copy(user_input,user_input1)
+            files_local_directory.append(user_input1)
             entry.destroy()
             entry2.destroy()
             button_test.destroy()
             cancel_button.destroy()
+            window.destroy()
+            generate_gui()
             
         entry = tkinter.Entry(window, width=25)
         entry.insert(0,'File_name')
